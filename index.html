@@ -44,7 +44,6 @@
 
 </fieldset>
 
-
 <fieldset><legend>Sunshine Zone</legend>
 <figure><img src="images/US-Solar-Zone-Map.jpg" alt="zone map"></figure>
 <p>Please use this map to determine which zone you are in.</p>
@@ -71,12 +70,15 @@
 
 </form>
 
+<button onclick="deleteSolarData()">Delete Data</button>
+<button onclick="postSolarData()">Save Data</button>
+<br />
 <button onclick="calculateEnergy()">Calculate Solar Needs</button>
 <h2>Solar Reccomendation</h2>
 <div id="feedback"><p>Enter your information above to calculate your solar needs.</p></div>
 </main>
 <footer>
-<p>Created by David Ivan following a Pluralsight course on JavaScript</p>
+<!-- <p>Created by David Ivan following a Pluralsight course on JavaScript</p> --!>
 </footer>
 
 </body>

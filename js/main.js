@@ -1,6 +1,8 @@
 /*jslint browser:true */
 "use strict";
 
+ var url = 'http://localhost:3000/year/'; //eventual baseurl + ..
+
 function addMonths(elementId) {
   var annualUseKw = 0;
   var dailyUseKw = 0;
@@ -63,7 +65,7 @@ function calculatePanel() {
   return selectedPanel;
 }
 
-function calculateEnergy(){
+function calculateEnergy() {
   var dailyUseKw = addMonths('mpc');
   var sunHoursPerDay = sunHours();
   //console.log(sunHoursPerDay);
@@ -91,3 +93,109 @@ function calculateEnergy(){
 
   document.getElementById('feedback').innerHTML = feedback;
 }
+
+/**
+ * NETWORK CALLS
+ */
+
+ function getSolarData() {
+   fetch(url)
+  .then(
+    function(response) {
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' +
+          response.status);
+        return;
+      }
+
+      // Examine the text in the response
+      response.json().then(function(data) {
+        console.log(data);
+
+        var months = document.getElementById('mpc').getElementsByTagName('input');
+        console.log(months[0]);
+        for (var i = 0; i < data.length; i++) {
+          var temp = data[i];
+          var kWh = temp["kWh"];
+          months[i].value = Number(kWh);
+        }
+      });
+    }
+  )
+  .catch(function(err) {
+    console.log('Fetch Error: ', err);
+  });
+
+ }
+
+ function deleteSolarData() {
+   var months = document.getElementById('mpc').getElementsByTagName('input');
+   for (var i = 1; i <= months.length; i++) {
+       fetch(url + String(i), {
+        method: 'delete',
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: ''
+      })
+      .then(function (data) {
+        console.log('Request succeeded with JSON response', data);
+      })
+      .catch(function (error) {
+        console.log('Request failed', error);
+      });
+   }
+
+
+ }
+
+
+ function postSolarData() {
+   var json = { "year": [
+     { "id": 1, "name": "January", "kWh": "0" },
+     { "id": 2, "name": "February", "kWh": "0" },
+     { "id": 3, "name": "March", "kWh": "0" },
+     { "id": 4, "name": "April", "kWh": "0" },
+     { "id": 5, "name": "May", "kWh": "0" },
+     { "id": 6, "name": "June", "kWh": "0" },
+     { "id": 7, "name": "July", "kWh": "0" },
+     { "id": 8, "name": "August", "kWh": "0" },
+     { "id": 9, "name": "September", "kWh": "0" },
+     { "id": 10, "name": "October", "kWh": "0" },
+     { "id": 11, "name": "November", "kWh": "0" },
+     { "id": 12, "name": "December", "kWh": "0" }
+   ]};
+
+  // console.log(json);
+
+   var months = document.getElementById('mpc').getElementsByTagName('input');
+   console.log(months.length);
+   for (var i = 0; i < months.length; i++) {
+     //console.log(json['year'][i].name);
+     json['year'][i].kWh = Number(months[i].value);
+     //var kWh = temp["kWh"];
+     //months[i].value = Number(kWh);
+   }
+
+   console.log('JSON to post' + json);
+
+   fetch(url, {
+    method: 'post',
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: ''
+  })
+  .then(json)
+  .then(function (data) {
+    console.log('Request succeeded with JSON response', data);
+  })
+  .catch(function (error) {
+    console.log('Request failed', error);
+  });
+ }
+/**
+ * Calls on loading the page
+ */
+
+ getSolarData();

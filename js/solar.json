@@ -1,0 +1,67 @@
+{
+  "year": [
+    {
+      "id": 1,
+      "name": "January",
+      "kWh": "0"
+    },
+    {
+      "id": 2,
+      "name": "February",
+      "kWh": "0"
+    },
+    {
+      "id": 3,
+      "name": "March",
+      "kWh": "0"
+    },
+    {
+      "id": 4,
+      "name": "April",
+      "kWh": "0"
+    },
+    {
+      "id": 5,
+      "name": "May",
+      "kWh": "0"
+    },
+    {
+      "id": 6,
+      "name": "June",
+      "kWh": "0"
+    },
+    {
+      "id": 7,
+      "name": "July",
+      "kWh": "0"
+    },
+    {
+      "id": 8,
+      "name": "August",
+      "kWh": "0"
+    },
+    {
+      "id": 9,
+      "name": "September",
+      "kWh": "0"
+    },
+    {
+      "id": 10,
+      "name": "October",
+      "kWh": "0"
+    },
+    {
+      "id": 11,
+      "name": "November",
+      "kWh": "0"
+    },
+    {
+      "id": 12,
+      "name": "December",
+      "kWh": "0"
+    },
+    {
+      "id": 13
+    }
+  ]
+}
