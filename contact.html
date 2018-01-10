@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
+<title>Best Solar</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,700" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<header>
+<h1>Best Solar</h1>
+</header>
+<nav>
+<ul>
+<li class="active"><a href="index.html">Calculator</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+<div class="keepOpen"></div>
+</nav>
+
+<main>
+  <div id="send_feedback"></div>
+  <form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
+    <div class="row">
+      <label class="required" for="name">Your name:</label>
+      <input id="name" class="input" name="name" type="text" value="" size="30" /><br />
+    </div>
+    <div class="row">
+      <label class="required" for="email">Your email:</label>
+      <input id="email" class="input" name="email" type="text" value="" size="30" /><br />
+    </div>
+    <div class="row">
+      <label class="required" for="message">Your message:</label>
+      <textarea id="message" class="input" name="message" rows="7" cols="30"></textarea><br />
+    </div>
+
+      <button onclick="postMessage()">Send message</button>
+  </form>
+</main>
+
+</body>
+<script type="text/javascript" src="js/contact.js"></script>
+
+</html>

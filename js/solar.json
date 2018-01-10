@@ -3,12 +3,12 @@
     {
       "id": 1,
       "name": "January",
-      "kWh": "0"
+      "kWh": "20"
     },
     {
       "id": 2,
       "name": "February",
-      "kWh": "0"
+      "kWh": "10"
     },
     {
       "id": 3,
@@ -59,9 +59,6 @@
       "id": 12,
       "name": "December",
       "kWh": "0"
-    },
-    {
-      "id": 13
     }
   ]
 }
