@@ -1,7 +1,7 @@
 /*jslint browser:true */
 "use strict";
 
- var url = 'http://localhost:3000/year/'; //eventual baseurl + ..
+ var url = 'http://localhost:3000/year/';
 
 function addMonths(elementId) {
   var annualUseKw = 0;
@@ -128,120 +128,96 @@ function calculateEnergy() {
 
  }
 
- function deleteSolarData() {
-   var months = document.getElementById('mpc').getElementsByTagName('input');
-   for (var i = 1; i <= months.length; i++) {
-       fetch(url + String(i), {
-        method: 'delete',
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: ''
-      })
-      .then(function (data) {
+ // function deleteSolarData() {
+ //   var months = document.getElementById('mpc').getElementsByTagName('input');
+ //   for (var i = 1; i <= months.length; i++) {
+ //       fetch(url + String(i), {
+ //        method: 'delete',
+ //        headers: {
+ //          "Content-type": "application/json"
+ //        },
+ //        body: ''
+ //      })
+ //      .then(function (data) {
+ //        console.log('Request succeeded with JSON response', data);
+ //      })
+ //      .catch(function (error) {
+ //        console.log('Request failed', error);
+ //      });
+ //   }
+ // }
+
+function updateMonth(id, kwHToPut) {
+  let monthName;
+  switch (id) {
+    case 1:
+      monthName = 'January'
+      break;
+    case 2:
+      monthName = 'February'
+      break;
+    case 3:
+      monthName = 'March'
+      break;
+    case 4:
+      monthName = 'April'
+      break;
+    case 5:
+      monthName = 'May'
+      break;
+    case 6:
+        monthName = 'June'
+        break;
+    case 7:
+      monthName = 'July'
+      break;
+    case 8:
+      monthName = 'August'
+      break;
+    case 9:
+      monthName = 'September'
+     break;
+   case 10:
+      monthName = 'October'
+     break;
+    case 11:
+      monthName = 'November'
+      break;
+   case 12:
+      monthName = 'December'
+      break;
+    default:
+      monthName = ""
+  }
+
+  const putObject = {
+    name: monthName,
+    kWh: kwHToPut
+  }
+
+  //console.log(putObject);
+
+  fetch(`http://localhost:3000/year/${id}`, {
+       method: 'PUT',
+       headers: {
+           "Content-type": "application/json"
+       },
+       body: JSON.stringify(putObject)
+   }).then(function (data) {
         console.log('Request succeeded with JSON response', data);
-      })
-      .catch(function (error) {
-        console.log('Request failed', error);
-      });
-   }
- }
+});
+}
 
  function putSolarData() {
-   var json = { "year": [
-     { "id": 1, "name": "January", "kWh": "0" },
-     { "id": 2, "name": "February", "kWh": "0" },
-     { "id": 3, "name": "March", "kWh": "0" },
-     { "id": 4, "name": "April", "kWh": "0" },
-     { "id": 5, "name": "May", "kWh": "0" },
-     { "id": 6, "name": "June", "kWh": "0" },
-     { "id": 7, "name": "July", "kWh": "0" },
-     { "id": 8, "name": "August", "kWh": "0" },
-     { "id": 9, "name": "September", "kWh": "0" },
-     { "id": 10, "name": "October", "kWh": "0" },
-     { "id": 11, "name": "November", "kWh": "0" },
-     { "id": 12, "name": "December", "kWh": "0" }
-   ]};
-
-  // console.log(json);
 
    var months = document.getElementById('mpc').getElementsByTagName('input');
    console.log(months.length);
+   var putObject;
    for (var i = 0; i < months.length; i++) {
-     //console.log(json['year'][i].name);
-     json['year'][i].kWh = Number(months[i].value);
-     //var kWh = temp["kWh"];
-     //months[i].value = Number(kWh);
+     updateMonth(i+1, Number(months[i].value));
    }
-
-
-
-   for (var i = 0; i < months.length; i++) {
-     var random = JSON.stringify(json['year'][i]);
-     console.log(random);
-    // console.log(json['year'][2]);
-       fetch(url + String(i), {
-        method: 'put',
-        headers: {
-          "Content-type": "application/json"
-        },
-      })
-      .then(random)
-      .then(function (data) {
-        console.log('Request succeeded with JSON response', data);
-      })
-      .catch(function (error) {
-        console.log('Request failed', error);
-      });
-   }
-
  }
 
-
- // function postSolarData() {
- //   var json = { "year": [
- //     { "id": 1, "name": "January", "kWh": "0" },
- //     { "id": 2, "name": "February", "kWh": "0" },
- //     { "id": 3, "name": "March", "kWh": "0" },
- //     { "id": 4, "name": "April", "kWh": "0" },
- //     { "id": 5, "name": "May", "kWh": "0" },
- //     { "id": 6, "name": "June", "kWh": "0" },
- //     { "id": 7, "name": "July", "kWh": "0" },
- //     { "id": 8, "name": "August", "kWh": "0" },
- //     { "id": 9, "name": "September", "kWh": "0" },
- //     { "id": 10, "name": "October", "kWh": "0" },
- //     { "id": 11, "name": "November", "kWh": "0" },
- //     { "id": 12, "name": "December", "kWh": "0" }
- //   ]};
- //
- //  // console.log(json);
- //
- //   var months = document.getElementById('mpc').getElementsByTagName('input');
- //   console.log(months.length);
- //   for (var i = 0; i < months.length; i++) {
- //     //console.log(json['year'][i].name);
- //     json['year'][i].kWh = Number(months[i].value);
- //     //var kWh = temp["kWh"];
- //     //months[i].value = Number(kWh);
- //   }
- //
- //   console.log('JSON to post' + json);
- //
- //   fetch(url, {
- //    method: 'post',
- //    headers: {
- //      "Content-type": "application/json"
- //    },
- //    body: ''
- //  })
- //  .then(json)
- //  .then(function (data) {
- //    console.log('Request succeeded with JSON response', data);
- //  })
- //  .catch(function (error) {
- //    console.log('Request failed', error);
- //  });
- // }
 /**
  * Calls on loading the page
  */
